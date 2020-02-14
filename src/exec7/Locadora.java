@@ -14,51 +14,55 @@ import javax.swing.JOptionPane;
 public class Locadora {
 
 	static Carro vetorCarro[];
+	static Carro auxiliar[];
 
 	public Locadora() {
 		boolean exit = false;
 		try {
-		while (!exit) {
-			int opcao = Integer.parseInt(JOptionPane.showInputDialog(
-					"Informe a opcao: \nOpcção 1 - Pesquisa o modelo do Carro \nOpcção 2 - Pesquisa a Velocidade Maxia do carro \nOpcção 3 - Pesquisa a Quantidade Combustivel que o carro tem \nOpcção 4 - Mostra os carros por ordem de preço \nOpcção 5 - Pesquisa a cor dos carros \nOpcção 6 - Modo Compra \nOpcção 9 - Fim do programa"));
+			while (!exit) {
+				int opcao = Integer.parseInt(JOptionPane.showInputDialog(
+						"Informe a opcao: \nOpcção 1 - Pesquisa o modelo do Carro \nOpcção 2 - Pesquisa a Velocidade Maxia do carro \nOpcção 3 - Pesquisa a Quantidade Combustivel que o carro tem \nOpcção 4 - Mostra os carros por ordem de preço \nOpcção 5 - Pesquisa a cor dos carros \nOpcção 6 - Modo Compra \nOpcção 9 - Fim do programa"));
 
-			switch (opcao) {
-			case 1:
-				pesquisaModelo();
-				break;
-			case 2:
-				pesquisaVelocidade();
-				break;
-			case 3:
-				pesquisaCombustivel();
-				break;
-			case 4:
-				doMairAoMenor();
-				break;
-			case 5:
-				pesquisaCor();
-				break;
-			case 6:
-				modoCompra();
-				break;
-			case 9:
-				exit = true;
-				break;
-			default:
-				JOptionPane.showMessageDialog(null, "Opção invalida!");
-				break;
+				switch (opcao) {
+				case 1:
+					pesquisaModelo();
+					break;
+				case 2:
+					pesquisaVelocidade();
+					break;
+				case 3:
+					pesquisaCombustivel();
+					break;
+				case 4:
+					doMairAoMenor();
+					break;
+				case 5:
+					pesquisaCor();
+					break;
+				case 6:
+					modoCompra();
+					break;
+				case 9:
+					exit = true;
+					break;
+				default:
+					JOptionPane.showMessageDialog(null, "Opção invalida!");
+					break;
+				}
 			}
-		}
-		}catch(NumberFormatException e){
+		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Modelo invalido");
 			new Locadora();
 		}
+	}
 
+	public static void colocaVetor() {
+		new Carro();
 	}
 
 	public static void main(String[] args) {
 
-		vetorCarro = new Carro[10];
+		vetorCarro = new Carro[11];
 		Carro carrinho1 = new Carro(100, 500000, "CPF - 1234", "KOMBI", "ALCOOL", "AMARELO", 1);
 		Carro carrinho2 = new Carro(130, 200000, "RGS - 5678", "FUSCA", "GASOLINA", "AZUL", 2);
 		Carro carrinho3 = new Carro(100, 300000, "SEL - 3245", "GOL", "FLEX", "CINZA", 3);
@@ -107,41 +111,41 @@ public class Locadora {
 			JOptionPane.showMessageDialog(null, "Modelo invalido");
 		} else {
 
-
 			JOptionPane.showMessageDialog(null, listaCarro);
 		}
 	}
 
 	public void pesquisaVelocidade() {
 		try {
-		int velocidade = Integer.parseInt(JOptionPane.showInputDialog("Digite a velocidade do carro: ").toUpperCase());
-		boolean temCarro = false;
-		String listaCarro = "";
-		for (int i = 0; i < 10; i++) {
-			if (vetorCarro[i].velocidadeMaxima == velocidade) {
-				if (vetorCarro[i].vendido) {
+			int velocidade = Integer
+					.parseInt(JOptionPane.showInputDialog("Digite a velocidade do carro: ").toUpperCase());
+			boolean temCarro = false;
+			String listaCarro = "";
+			for (int i = 0; i < 10; i++) {
+				if (vetorCarro[i].velocidadeMaxima == velocidade) {
+					if (vetorCarro[i].vendido) {
 
-				} else {
+					} else {
 
-					String valorFormatado = new DecimalFormat("R$#,##0.00").format(vetorCarro[i].valor);
-					listaCarro = listaCarro + "Modelo:..............." + vetorCarro[i].modeloDoCarro
-							+ "\nPlaca:.................." + vetorCarro[i].placaCarro + "\nCombustível:....."
-							+ vetorCarro[i].combustivel + "\nVel. max.::.........." + vetorCarro[i].velocidadeMaxima
-							+ "\nValor:..........." + valorFormatado + "\nCor:............." + vetorCarro[i].cor
-							+ "\n\n";
-					temCarro = true;
+						String valorFormatado = new DecimalFormat("R$#,##0.00").format(vetorCarro[i].valor);
+						listaCarro = listaCarro + "Modelo:..............." + vetorCarro[i].modeloDoCarro
+								+ "\nPlaca:.................." + vetorCarro[i].placaCarro + "\nCombustível:....."
+								+ vetorCarro[i].combustivel + "\nVel. max.::.........." + vetorCarro[i].velocidadeMaxima
+								+ "\nValor:..........." + valorFormatado + "\nCor:............." + vetorCarro[i].cor
+								+ "\n\n";
+						temCarro = true;
+					}
 				}
 			}
-		}
-		if (!temCarro) {
-			JOptionPane.showMessageDialog(null, "Velocidade invalida");
-		} else {
+			if (!temCarro) {
+				JOptionPane.showMessageDialog(null, "Velocidade invalida");
+			} else {
 
-			JOptionPane.showMessageDialog(null, listaCarro);
-		}
-		}catch(NumberFormatException e){
-				JOptionPane.showMessageDialog(null, "Modelo invalido");
-				pesquisaVelocidade();
+				JOptionPane.showMessageDialog(null, listaCarro);
+			}
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Modelo invalido");
+			pesquisaVelocidade();
 		}
 	}
 
@@ -231,9 +235,26 @@ public class Locadora {
 
 	public void modoCompra() {
 
+		auxiliar = new Carro[11];
+
 		String escolhaCarro = JOptionPane.showInputDialog("Digite o Carro que você quer comprar").toUpperCase();
 		String escolhaCor = JOptionPane.showInputDialog("Digite a cor do carro: ").toUpperCase();
 		boolean temCarro = false;
+		int cont = 0;
+		String listaCarro = "";
+		for (int h = 0; h < vetorCarro.length - 1; h++) {
+			if (vetorCarro[h].modeloDoCarro.equals(escolhaCarro) && vetorCarro[h].cor.equals(escolhaCor)) {
+				
+				String valorFormatado = new DecimalFormat("R$#,##0.00").format(vetorCarro[h].valor);
+				listaCarro = listaCarro + cont + "Modelo:..............." + vetorCarro[h].modeloDoCarro
+						+ "\nPlaca:.................." + vetorCarro[h].placaCarro + "\nCombustível:....."
+						+ vetorCarro[h].combustivel + "\nVel. max.::.........." + vetorCarro[h].velocidadeMaxima
+						+ "\nValor:..........." + valorFormatado + "\nCor:............." + vetorCarro[h].cor + "\n\n";
+				temCarro = true;
+				auxiliar[cont] = vetorCarro[h];
+				cont++;
+			}
+		}
 
 		for (int h = 0; h < vetorCarro.length - 1; h++) {
 			for (int j = h + 1; j < vetorCarro.length; j++) {
@@ -244,33 +265,25 @@ public class Locadora {
 				}
 			}
 		}
-		String listaCarro = "";
-		for (Carro carro : vetorCarro) {
-			if (carro.modeloDoCarro.equals(escolhaCarro) && carro.cor.equals(escolhaCor)) {
-				if (carro.vendido) {
-
-						} else {
-
-							String valorFormatado = new DecimalFormat("R$#,##0.00").format(carro.valor);
-							listaCarro = listaCarro + "Modelo:..............." + carro.modeloDoCarro + "\nPlaca:.................."
-									+ carro.placaCarro + "\nCombustível:....." + carro.combustivel + "\nVel. max.::.........."
-									+ carro.velocidadeMaxima + "\nValor:..........." + valorFormatado + "\nCor:............."
-									+ carro.cor + "\n\n";
-						}
-					}
-
-					JOptionPane.showMessageDialog(null, listaCarro);
-		}
-		if (!temCarro) {
-			System.out.println("Modelo invalido");
-		}
-
-		int compraCarro = Integer.parseInt(JOptionPane.showInputDialog("escolha o veiculo por numero: ").toUpperCase());
-		for (int i = 0; i < vetorCarro.length; i++) {
-			if (compraCarro == vetorCarro[i].posicao) {
-				vetorCarro[i].vendido = true;
+		
+		if (temCarro) {
+			String opcao = JOptionPane.showInputDialog(listaCarro);
+			int num = Integer.parseInt(opcao);
+			
+			double valor = Double.parseDouble(JOptionPane.showInputDialog("Informe o valor a ser pago:"));
+			if (valor == auxiliar[num].valor) {
+				//vendo
+			}else if (valor < auxiliar[num].valor) {
+				//não vendo
+			}else {
+				//vendo
+				
 			}
+			
+			
 		}
+
+
 	}
 
 }
